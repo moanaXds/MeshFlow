@@ -136,6 +136,7 @@ try:
     connection.commit()
 
     # verify 
+
     cursor.execute("SELECT COUNT(*) FROM dim_supplier")
     print("Total suppliers:", cursor.fetchone()[0])
 
@@ -146,7 +147,7 @@ try:
 
 
 
-    # insert stores
+    # insert static stores ( Online + 4 physical UK stores )
 
     stores = [
         ("1", "Online", "Web"),
@@ -170,7 +171,7 @@ try:
 
     cursor.executemany(store_query, stores)
 
-    # generate and insert time dimension
+    # generate and insert time dimension ( from Dec 1, 2010 -> Dec 31, 2011 )
 
     time_records = []
     current_time = datetime(2010, 12, 1, 0, 0)
