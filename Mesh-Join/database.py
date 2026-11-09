@@ -16,7 +16,7 @@ connection = mysql.connector.connect(
 try:
     cursor = connection.cursor()
 
-    # read customer master data
+    # customer master data -> customer dim
 
     with open("../Data/processed/customer_master_data.csv", "r", newline="") as file:
         reader = csv.DictReader(file)
@@ -34,7 +34,6 @@ try:
                 row["marital_status"].strip() or None
             ))
 
-    # insert customers into dimension table
     query = """
         INSERT INTO dim_customer (
             customer_id,
@@ -73,7 +72,7 @@ try:
 
 
 
-    # read supplier and product master data
+    # product master data -> supplier dim & product dim
 
 
     with open("../Data/processed/product_master_data.csv", "r", newline="") as file:
