@@ -13,7 +13,7 @@ buffer_lock = threading.Lock()
 
 
 
-#           THREAD 1: STREAM PRODUCER (adding trans -> stream bufferE) 
+#           THREAD 1: STREAM PRODUCER ( adding trans -> stream buffer ) 
 
 
 
@@ -53,14 +53,19 @@ class StreamProducerThread(threading.Thread):
 
     def _push_batch(self, batch):
         with buffer_lock:
+
             for tx in batch:
+
                 # keep trying until room in buffer or stopped
+
                 while self.running:
                     added = self.mj.add_to_stream_buffer(tx)
                     if added:
                         self.total_stream_pushed += 1
                         break
+
                     # buffer full -> release lock briefly so MESHJOIN can consume
+
                     buffer_lock.release()
                     time.sleep(0.005)
                     buffer_lock.acquire()
@@ -84,12 +89,14 @@ class PeriodicExtractorThread(threading.Thread):
         self.running = True
 
         # shed table on disk / in memory
+
         self.shed_queue = deque()
         self.total_periodic_pushed = 0
         self.total_shed = 0
         self.total_recovered = 0
 
         # group periodic data by release_hour
+
         self.hourly_batches = {}
         self._load_periodic_data()
 
@@ -106,6 +113,7 @@ class PeriodicExtractorThread(threading.Thread):
         print("\n[Periodic Thread] Started periodic extraction...")
 
         # loop through 48 release periods
+
         for hour in range(self.total_hours):
             if not self.running:
                 break
@@ -113,20 +121,27 @@ class PeriodicExtractorThread(threading.Thread):
             batch = self.hourly_batches.get(hour, [])
 
             with buffer_lock:
+
                 # first try to recover shed transactions if buffer has capacity
+
                 while self.shed_queue and len(self.mj.stream_buffer) < self.mj.stream_buffer_size:
                     recovered_tx = self.shed_queue.popleft()
                     self.mj.add_to_stream_buffer(recovered_tx)
                     self.total_recovered += 1
 
                 # process current hour's periodic transactions
+
                 for tx in batch:
+
                     # check if MESHJOIN is at full capacity
+
                     if len(self.mj.stream_buffer) < self.mj.stream_buffer_size:
                         self.mj.add_to_stream_buffer(tx)
                         self.total_periodic_pushed += 1
                     else:
+                        
                         # shed periodic transaction to shed table
+
                         self.shed_queue.append(tx)
                         self.total_shed += 1
 
