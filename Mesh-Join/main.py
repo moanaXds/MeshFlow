@@ -1,4 +1,6 @@
 
+
+
 import time
 from collections import deque
 from pathlib import Path
@@ -14,42 +16,44 @@ from threads import (
 )
 
 
-#           SURROGATE KEY CACHES FOR FAST FACT INSERTION
+#   loads all dimension keys from database -> Python dictionary
+#   SURROGATE KEY : juss generated identifier for indexing/retrival
 
 
 def load_dimension_keys(cursor):
+
     print("\n--- LOADING DIMENSION KEYS FROM DATABASE ---")
 
-    # customer key cache: customer_id -> customer_key
+
 
     cursor.execute("SELECT customer_id, customer_key FROM dim_customer")
     customer_keys = {str(row[0]): row[1] for row in cursor.fetchall()}
 
-    # product key cache: product_id -> product_key
 
     cursor.execute("SELECT product_id, product_key FROM dim_product")
     product_keys = {str(row[0]): row[1] for row in cursor.fetchall()}
 
-    # supplier key cache: supplier_id -> supplier_key
     cursor.execute("SELECT supplier_id, supplier_key FROM dim_supplier")
     supplier_keys = {str(row[0]): row[1] for row in cursor.fetchall()}
 
-    # store key cache: store_id -> store_key
     cursor.execute("SELECT store_id, store_key FROM dim_store")
     store_keys = {str(row[0]): row[1] for row in cursor.fetchall()}
 
-    # time key cache: (full_date_str, hour) -> date_key
     cursor.execute("SELECT date_format(full_date, '%Y-%m-%d'), hour, date_key FROM dim_time")
     time_keys = {(row[0], int(row[1])): row[2] for row in cursor.fetchall()}
 
     print(f"Loaded: {len(customer_keys)} customers, {len(product_keys)} products, {len(supplier_keys)} suppliers, {len(store_keys)} stores, {len(time_keys)} time slots.")
 
+
+
     return customer_keys, product_keys, supplier_keys, store_keys, time_keys
 
 
 
-#           BATCH INSERT FACT RECORDS INTO TRANSACTION_FACT
 
+
+
+#           inserts enriched trans records -> transaction_fact
 
 
 def insert_fact_batch(cursor, connection, batch):
@@ -89,23 +93,23 @@ def insert_fact_batch(cursor, connection, batch):
 def main():
     print("\n   RETAIL DATA WAREHOUSE - MESHJOIN ETL   \n")
 
-    # database connection
     password = getpass("MySQL password: ")
 
     connection = mysql.connector.connect(
         host="127.0.0.1",
         port=3306,
         user="root",
-        password=password,
+        password="*2429883",
         database="retail_dw"
     )
 
     cursor = connection.cursor()
 
-    # load dimension surrogate keys into memory
+    # load dimension surrogate keys -> memory
+
     customer_keys, product_keys, supplier_keys, store_keys, time_keys = load_dimension_keys(cursor)
 
-    # file paths
+
     base_dir = Path(__file__).parent.parent / "Data" / "processed"
     customer_csv = base_dir / "customer_master_data.csv"
     product_csv = base_dir / "product_master_data.csv"
@@ -113,7 +117,10 @@ def main():
     periodic_csv = base_dir / "periodic_sales_staging.csv"
 
     # initialize MESHJOIN operator
+
     print("\n    INITIALIZING MESHJOIN OPERATOR ")
+
+    
     mj = MeshJoin(customer_csv, product_csv, chunk_size=500, stream_buffer_size=1000)
 
   
