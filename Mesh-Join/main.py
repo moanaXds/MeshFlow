@@ -185,7 +185,11 @@ def main():
 
             quantity = int(tx.get("quantity", 1))
             unit_price = float(tx.get("unit_price", 0.0))
+            if unit_price < 0.01:
+                unit_price = 0.01
             revenue = round(float(tx.get("sale", quantity * unit_price)), 2)
+            if revenue <= 0:
+                revenue = round(quantity * unit_price, 2)
 
             sales_mode = tx.get("sales_mode", "online")
             processing_mode = "meshjoin"
