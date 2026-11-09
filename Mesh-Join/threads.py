@@ -139,7 +139,7 @@ class PeriodicExtractorThread(threading.Thread):
                         self.mj.add_to_stream_buffer(tx)
                         self.total_periodic_pushed += 1
                     else:
-                        
+
                         # shed periodic transaction to shed table
 
                         self.shed_queue.append(tx)
@@ -148,6 +148,7 @@ class PeriodicExtractorThread(threading.Thread):
             time.sleep(self.interval_sec)
 
         # recover any remaining shed transactions once all hours finished
+        
         while self.shed_queue and self.running:
             with buffer_lock:
                 while self.shed_queue and len(self.mj.stream_buffer) < self.mj.stream_buffer_size:

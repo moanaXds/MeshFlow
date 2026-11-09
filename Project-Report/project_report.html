@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Report - DS3003 & DS3004</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12pt;
+      line-height: 1.8;
+      color: #000;
+      background: #fff;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 70px;
+    }
+
+    .cover-page {
+      text-align: center;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      page-break-after: always;
+    }
+
+    .cover-page .university {
+      font-size: 15pt;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .cover-page .dept {
+      font-size: 12pt;
+      margin-bottom: 30px;
+    }
+
+    .cover-page .title {
+      font-size: 16pt;
+      font-weight: bold;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .cover-page .subtitle {
+      font-size: 12pt;
+      margin-bottom: 40px;
+      font-style: italic;
+    }
+
+    .cover-page table {
+      border-collapse: collapse;
+      width: 65%;
+      margin: 0 auto;
+      font-size: 11pt;
+    }
+
+    .cover-page table td {
+      padding: 5px 10px;
+      text-align: left;
+    }
+
+    .cover-page table td:first-child {
+      font-weight: bold;
+      width: 42%;
+    }
+
+    .toc-page {
+      page-break-after: always;
+    }
+
+    h1 {
+      font-size: 14pt;
+      font-weight: bold;
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: bold;
+      font-style: italic;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    ul,
+    ol {
+      margin-left: 28px;
+      margin-bottom: 10px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 10pt;
+      background: none;
+    }
+
+    pre {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 12px 16px;
+      margin: 10px 0 14px 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 12px 0;
+      font-size: 11pt;
+    }
+
+    table th {
+      border: 1px solid #000;
+      padding: 6px 10px;
+      font-weight: bold;
+      background: #f0f0f0;
+      text-align: left;
+    }
+
+    table td {
+      border: 1px solid #000;
+      padding: 5px 10px;
+    }
+
+    .section-break {
+      page-break-before: always;
+    }
+
+    .toc-entry {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 11.5pt;
+    }
+
+    .toc-dots {
+      flex: 1;
+      border-bottom: 1px dotted #000;
+      margin: 0 6px;
+      position: relative;
+      top: -4px;
+    }
+
+    .figure-caption {
+      text-align: center;
+      font-size: 10.5pt;
+      font-style: italic;
+      margin-top: 4px;
+      margin-bottom: 14px;
+    }
+
+    .info-box {
+      border: 1px solid #000;
+      padding: 10px 16px;
+      margin: 12px 0;
+      font-size: 11pt;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .cover-page {
+        page-break-after: always;
+      }
+
+      .toc-page {
+        page-break-after: always;
+      }
+
+      .section-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== COVER PAGE ==================== -->
+  <div class="cover-page">
+    <div class="university">National University of Computer and Emerging Sciences</div>
+    <div class="dept">FAST-NUCES</div>
+    <br><br>
+    <div class="dept">Bachelor of Science in Data Science</div>
+    <div class="dept">Course Code: DS3003 &amp; DS3004</div>
+    <div class="dept">Course Name: Data Warehousing &amp; Business Intelligence</div>
+    <div class="dept">Semester: Fall 2026</div>
+    <br><br>
+    <div class="title">
+      Practical Project Report<br>
+      Building and Analysing a Near-Real-Time and Periodic<br>
+      Data Warehouse for a Retail Chain
+    </div>
+    <div class="subtitle">MESHJOIN-Based ETL Pipeline with Star Schema and OLAP Analysis</div>
+    <br><br>
+    <table>
+      <tr>
+        <td>Course Instructor:</td>
+        <td>Muhammad Asif Naeem</td>
+      </tr>
+      <tr>
+        <td>Submission Date:</td>
+        <td>13 November 2026</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ==================== TABLE OF CONTENTS ==================== -->
+  <div class="toc-page">
+    <h1>Table of Contents</h1>
+    <br>
+    <div class="toc-entry"><span>1. Introduction</span><span class="toc-dots"></span><span>3</span></div>
+    <div class="toc-entry"><span>2. Data Cleaning</span><span class="toc-dots"></span><span>4</span></div>
+    <div class="toc-entry"><span>3. Master Data Generation</span><span class="toc-dots"></span><span>5</span></div>
+    <div class="toc-entry"><span>4. Data Warehouse Design (Star Schema)</span><span
+        class="toc-dots"></span><span>7</span></div>
+    <div class="toc-entry"><span>5. MESHJOIN Algorithm</span><span class="toc-dots"></span><span>9</span></div>
+    <div class="toc-entry"><span>6. Multi-Threading and Load Shedding</span><span
+        class="toc-dots"></span><span>12</span></div>
+    <div class="toc-entry"><span>7. Pipeline Execution and Fact Loading</span><span
+        class="toc-dots"></span><span>14</span></div>
+    <div class="toc-entry"><span>8. DW Analysis Queries</span><span class="toc-dots"></span><span>15</span></div>
+    <div class="toc-entry"><span>9. Conclusion</span><span class="toc-dots"></span><span>18</span></div>
+  </div>
+
+  <!-- ==================== SECTION 1: INTRODUCTION ==================== -->
+  <div class="section-break">
+    <h1>1. Introduction</h1>
+
+    <p>This project is about building a Data Warehouse for a retail chain that sells products both online and through
+      physical stores. The retailer generates two types of transaction data. Online sales arrive as a continuous stream
+      and need to reach the Data Warehouse in near real time. Physical store sales are collected in batches every hour
+      and loaded periodically.</p>
+
+    <p>The challenge is not just storing the data. The raw transactional records only contain basic fields like customer
+      ID, product code, quantity, price, and time. Before any record can go into the Data Warehouse, it needs to be
+      enriched with additional details, such as customer demographics and product category and supplier information.
+      This process of joining streaming data with master data stored on disk is handled by a stream-relation join
+      algorithm called MESHJOIN, which we implemented in Python.</p>
+
+    <p>The overall pipeline can be described in a few steps. First, the raw Excel file is cleaned. Then master data is
+      generated for customers and products. The cleaned transactions are split into online and periodic streams.
+      MESHJOIN runs in multiple threads to join the stream with master data and enrich each record. The enriched records
+      are then loaded into the Data Warehouse, which is built using a star schema in MySQL. Finally, 20 OLAP business
+      queries answer analytical questions about the retail chain's performance.</p>
+
+    <p>The entire implementation is written in Python for the ETL pipeline and MySQL for the database layer. All code
+      files are organized inside the project directory as specified in the assignment requirements.</p>
+
+    <h2>1.1 Project Directory Structure</h2>
+
+    <pre>
+final project/
+├── Create-DW/
+│   └── create_dw.sql           (database schema, dimensions, fact table, view)
+├── Data/
+│   ├── raw/
+│   │   └── Online Retail.xlsx
+│   ├── processed/
+│   │   ├── cleaned_transactions.csv
+│   │   ├── customer_master_data.csv
+│   │   ├── product_master_data.csv
+│   │   ├── online_sales_stream.csv
+│   │   └── periodic_sales_staging.csv
+│   └── README.md
+├── Mesh-Join/
+│   ├── data_preparation.py
+│   ├── database.py
+│   ├── meshjoin.py
+│   ├── threads.py
+│   ├── main.py
+│   └── requirements.txt
+├── Queries-DW/
+│   └── analysis_queries.sql
+└── README.md
+</pre>
+  </div>
+
+  <!-- ==================== SECTION 2: DATA CLEANING ==================== -->
+  <div class="section-break">
+    <h1>2. Data Cleaning</h1>
+
+    <p>The raw dataset is an Excel file called <code>Online Retail.xlsx</code>. It contains sales transactions of a
+      UK-based online and physical retail chain recorded between December 2010 and December 2011.</p>
+
+    <p>Before any processing, the file is read as-is. We do not manually edit it. The cleaning is done entirely by the
+      script <code>data_preparation.py</code>. The assignment says to keep a transaction only if all four of these
+      conditions are true:</p>
+
+    <ul>
+      <li>Quantity is greater than zero (removes negative quantities, which are return adjustments)</li>
+      <li>UnitPrice is greater than zero (removes test lines and manual corrections priced at zero)</li>
+      <li>CustomerID is present and not null (keeps only identified customers)</li>
+      <li>InvoiceNo does not start with the letter C (cancellation invoices start with C)</li>
+    </ul>
+
+    <p>These four filters are applied one after another using pandas. Each condition removes a subset of records. The
+      remaining records form the cleaned dataset that is used for all further steps.</p>
+
+    <h2>2.1 Cleaning Results</h2>
+
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Count</th>
+      </tr>
+      <tr>
+        <td>Transactions before cleaning</td>
+        <td>541,909</td>
+      </tr>
+      <tr>
+        <td>Transactions after cleaning</td>
+        <td>397,884</td>
+      </tr>
+      <tr>
+        <td>Transactions removed</td>
+        <td>144,025</td>
+      </tr>
+    </table>
+
+    <p>So we removed about 26.6 percent of the original records. The cleaned dataset is saved as
+      <code>cleaned_transactions.csv</code> inside the <code>Data/processed/</code> folder.
+    </p>
+
+    <h2>2.2 Cleaning Code</h2>
+
+    <pre>
+# keep only the not cancelled invoices
+cleaned_data = dataset[~dataset["InvoiceNo"].astype(str).str.startswith("C")]
+
+# keep only the valid quantities
+cleaned_data = cleaned_data[cleaned_data["Quantity"] > 0]
+
+# keep only the valid prices
+cleaned_data = cleaned_data[cleaned_data["UnitPrice"] > 0]
+
+# keep only customers with IDs
+cleaned_data = cleaned_data[cleaned_data["CustomerID"].notna()]
+</pre>
+  </div>
+
+  <!-- ==================== SECTION 3: MASTER DATA ==================== -->
+  <div class="section-break">
+    <h1>3. Master Data Generation</h1>
+
+    <p>The raw transactional data does not include customer demographics or product details beyond a stock code and
+      description. The assignment requires us to generate this master data ourselves. The important requirement is that
+      the data must be deterministic. That means every time the code runs, the exact same customer ID must get the exact
+      same attributes. We cannot use random numbers for this.</p>
+
+    <p>To achieve this, we use an MD5-based hashing function called <code>stable(text, n)</code>:</p>
+
+    <pre>
+def stable(text, n):
+    value = hashlib.md5(str(text).encode("utf-8")).hexdigest()[:8]
+    return int(value, 16) % n
+</pre>
+
+    <p>This function takes any text input and returns a number between 0 and n-1 consistently. The same input always
+      produces the same number, so the same customer ID always gets the same gender, age group, occupation, and so on.
+    </p>
+
+    <h2>3.1 Customer Master Data</h2>
+
+    <p>We take all unique CustomerIDs from the cleaned dataset and generate the following attributes for each customer:
+    </p>
+
+    <table>
+      <tr>
+        <th>Attribute</th>
+        <th>Values</th>
+        <th>Hash Input</th>
+      </tr>
+      <tr>
+        <td>gender</td>
+        <td>Male, Female</td>
+        <td>stable(customer_id, 2)</td>
+      </tr>
+      <tr>
+        <td>age_group</td>
+        <td>0-17, 18-25, 26-35, 36-45, 46-50, 51-55, 55+</td>
+        <td>stable(customer_id + "age", 7)</td>
+      </tr>
+      <tr>
+        <td>occupation</td>
+        <td>Student, Engineer, Teacher, Executive, Clerk, Healthcare, Retail, Homemaker, Artist, Other</td>
+        <td>stable(customer_id + "occ", 10)</td>
+      </tr>
+      <tr>
+        <td>city_category</td>
+        <td>A, B, C</td>
+        <td>stable(customer_id + country, 3)</td>
+      </tr>
+      <tr>
+        <td>stay_in_current_city_years</td>
+        <td>0, 1, 2, 3, 4+</td>
+        <td>stable(customer_id + "stay", 5)</td>
+      </tr>
+      <tr>
+        <td>marital_status</td>
+        <td>Single, Married</td>
+        <td>stable(customer_id + "mar", 2)</td>
+      </tr>
+    </table>
+
+    <p>Total customers generated: <strong>4,338 unique customers</strong>. Saved to
+      <code>customer_master_data.csv</code>.
+    </p>
+
+    <h2>3.2 Product Master Data</h2>
+
+    <p>We take all unique StockCodes from the cleaned data. For each product, we pick the longest non-empty description
+      from all rows that share that StockCode. This avoids keeping a short or partial description when a fuller one
+      exists. If there is no description at all, we set it as UNKNOWN.</p>
+
+    <p>The product attributes generated are:</p>
+
+    <table>
+      <tr>
+        <th>Attribute</th>
+        <th>Values</th>
+        <th>Hash Input</th>
+      </tr>
+      <tr>
+        <td>product_category</td>
+        <td>Home Decor, Kitchen, Stationery, Toys, Seasonal Gifts, Bags, Jewelry, Garden, Party, Other</td>
+        <td>stable(product_id + "cat", 10)</td>
+      </tr>
+      <tr>
+        <td>supplier_id</td>
+        <td>SUP01 to SUP05</td>
+        <td>stable(product_id, 5)</td>
+      </tr>
+      <tr>
+        <td>supplier_name</td>
+        <td>Northwind Supplies, Atlantic Gifts Ltd, Midlands Wholesale, Celtic Craft Co, EuroPack Partners</td>
+        <td>Mapped from supplier_id</td>
+      </tr>
+    </table>
+
+    <p>Total products generated: <strong>3,665 unique products</strong>. Saved to <code>product_master_data.csv</code>.
+    </p>
+
+    <h2>3.3 Splitting Online and Periodic Streams</h2>
+
+    <p>The assignment says that about 70 percent of the transactions should be treated as online stream data and the
+      remaining 30 percent as periodic store data. The split is applied at the invoice level, not the transaction line
+      level, so all items in a single cart get the same mode.</p>
+
+    <p>The rule is:</p>
+    <pre>
+sales_data["sales_mode"] = sales_data["transaction_id"].apply(
+    lambda x: "online" if stable(x, 10) < 7 else "periodic"
+)
+</pre>
+
+    <p>If the hash value falls in 0 to 6 (seven out of ten), the transaction is online. If it falls in 7, 8, or 9 (three
+      out of ten), it is periodic.</p>
+
+    <table>
+      <tr>
+        <th>Stream</th>
+        <th>File</th>
+        <th>Transactions</th>
+      </tr>
+      <tr>
+        <td>Online</td>
+        <td>online_sales_stream.csv</td>
+        <td>278,740</td>
+      </tr>
+      <tr>
+        <td>Periodic</td>
+        <td>periodic_sales_staging.csv</td>
+        <td>119,144</td>
+      </tr>
+    </table>
+
+    <p>The periodic data is sorted chronologically by event_time and divided into 48 release groups. Each group
+      represents one simulated hourly batch. This matches the assignment requirement that the physical store sends one
+      batch every hour over a 48-hour simulation.</p>
+
+    <h2>3.4 Store Assignment</h2>
+
+    <p>The assignment defines exactly five stores. No additional stores are allowed. The five stores are stored in
+      memory, not in a CSV file:</p>
+
+    <table>
+      <tr>
+        <th>Store ID</th>
+        <th>Store Name</th>
+        <th>City</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Online</td>
+        <td>Web</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>London Bridge</td>
+        <td>London</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Manchester Arndale</td>
+        <td>Manchester</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Birmingham Bullring</td>
+        <td>Birmingham</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Edinburgh Princes</td>
+        <td>Edinburgh</td>
+      </tr>
+    </table>
+
+    <p>Online transactions always go to store 1. Periodic (physical store) transactions are assigned to one of stores 2,
+      3, 4, or 5 using <code>stable(transaction_id, 4)</code> to pick the index deterministically.</p>
+  </div>
+
+  <!-- ==================== SECTION 4: STAR SCHEMA ==================== -->
+  <div class="section-break">
+    <h1>4. Data Warehouse Design (Star Schema)</h1>
+
+    <p>The Data Warehouse uses a star schema. There is one central fact table called <code>transaction_fact</code> that
+      holds the sales records. Five dimension tables surround it. The schema is defined in
+      <code>Create-DW/create_dw.sql</code> and runs against a MySQL database called <code>retail_dw</code>.
+    </p>
+
+    <h2>4.1 Dimension Tables</h2>
+
+    <h3>dim_customer</h3>
+    <p>Stores one row per unique customer. The primary key is an auto-generated <code>customer_key</code>. The natural
+      key <code>customer_id</code> has a unique constraint. Contains: gender, age_group, occupation, city_category,
+      stay_in_current_city_years, marital_status.</p>
+
+    <h3>dim_product</h3>
+    <p>Stores one row per unique stock code. Contains: product_id (unique), product_name, product_category. The supplier
+      information is stored in a separate dimension.</p>
+
+    <h3>dim_supplier</h3>
+    <p>Stores the five suppliers. Contains: supplier_id (unique), supplier_name. Each product is linked to a supplier
+      through the fact table.</p>
+
+    <h3>dim_store</h3>
+    <p>Stores exactly five rows. Contains: store_id (unique, 1 to 5), store_name, city. This is a fixed table, inserted
+      once and never changed.</p>
+
+    <h3>dim_time</h3>
+    <p>Covers every single hour from December 1, 2010 to December 31, 2011. That is 9,504 hourly records. Each row
+      contains: full_date, hour, day, month, quarter, year, day_of_week, weekday_weekend, season, half_year. The season
+      and half_year values are derived from the month field:</p>
+
+    <ul>
+      <li>Winter: December, January, February</li>
+      <li>Spring: March, April, May</li>
+      <li>Summer: June, July, August</li>
+      <li>Autumn: September, October, November</li>
+      <li>Half year 1: January to June</li>
+      <li>Half year 2: July to December</li>
+    </ul>
+
+    <h2>4.2 Fact Table</h2>
+
+    <p>The <code>transaction_fact</code> table stores one row per transaction line (one product in one invoice). It has
+      foreign keys to all five dimensions and three measured values: quantity, unit_price, and revenue. Revenue is
+      calculated as quantity multiplied by unit_price. The <code>sales_mode</code> column stores whether the transaction
+      came through the online stream or the periodic staging pipeline. The <code>processing_mode</code> column is set to
+      "meshjoin" to indicate it was processed through the MESHJOIN algorithm.</p>
+
+    <pre>
+create table transaction_fact (
+    fact_key              int auto_increment primary key,
+    transaction_id        varchar(30) not null,
+    transaction_line_number int unsigned not null,
+    customer_key          int not null,
+    product_key           int not null,
+    supplier_key          int not null,
+    store_key             int not null,
+    date_key              int not null,
+    quantity              int not null,
+    unit_price            decimal(12,2) not null,
+    revenue               decimal(14,2) not null,
+    sales_mode            varchar(20) not null,
+    processing_mode       varchar(20) not null,
+    unique (transaction_id, transaction_line_number),
+    check (quantity > 0),
+    check (unit_price > 0),
+    check (sales_mode in ('online', 'periodic'))
+);
+</pre>
+
+    <h2>4.3 Staging and Shed Tables</h2>
+
+    <p>Two additional working tables are part of the schema. <code>periodic_sales_data</code> holds the periodic
+      transactions with their release_hour and a released flag, used by the periodic extractor thread to know which
+      batch to push next. The <code>shed_table</code> temporarily holds transactions that could not enter the stream
+      buffer during peak load. These are recovered and re-inserted when the buffer has capacity.</p>
+  </div>
+
+  <!-- ==================== SECTION 5: MESHJOIN ==================== -->
+  <div class="section-break">
+    <h1>5. MESHJOIN Algorithm</h1>
+
+    <p>MESHJOIN was introduced by Polyzotis in 2008 to solve the problem of joining a high-speed data stream with large
+      master data stored on disk. The core idea is that we cannot load all master data into RAM at once because it is
+      too large, and we cannot query the database for every individual transaction because that would be too slow.
+      MESHJOIN solves this by processing transactions in overlapping batches (chunks) while cycling through master data
+      partitions in the background.</p>
+
+    <h2>5.1 Configuration Parameters</h2>
+
+    <table>
+      <tr>
+        <th>Parameter</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Stream buffer capacity</td>
+        <td>1,000 transactions</td>
+      </tr>
+      <tr>
+        <td>Chunk size (w)</td>
+        <td>500 transactions per chunk</td>
+      </tr>
+      <tr>
+        <td>Partition size</td>
+        <td>500 tuples per master data page</td>
+      </tr>
+      <tr>
+        <td>Customer master data partitions</td>
+        <td>9 pages (4,338 / 500 = ~9)</td>
+      </tr>
+      <tr>
+        <td>Product master data partitions</td>
+        <td>8 pages (3,665 / 500 = ~8)</td>
+      </tr>
+    </table>
+
+    <h2>5.2 Key Components</h2>
+
+    <h3>Stream Buffer</h3>
+    <p>A Python deque with a maximum size of 1,000. Incoming transactions from the online and periodic threads are
+      pushed here first. The MESHJOIN worker reads from this buffer in chunks of 500. If the buffer is at capacity,
+      incoming periodic transactions are shed to the shed table.</p>
+
+    <h3>DiskReader Class</h3>
+    <p>This class reads master data CSV files in pages of 500 rows. All pages are loaded at startup into a list of
+      partitions. When <code>get_next_partition()</code> is called, it returns the current page and advances the index
+      with wrap-around, so the master data is traversed cyclically:</p>
+
+    <pre>
+def get_next_partition(self):
+    partition = self.partitions[self.current_partition_index]
+    self.current_partition_index = (self.current_partition_index + 1) % len(self.partitions)
+    return partition
+</pre>
+
+    <h3>Hash Table H</h3>
+    <p>Two dictionaries, one for customer matching and one for product matching. Both are multi-maps: a single key can
+      point to multiple transactions. When a master data page is loaded, we look up each row's ID in the hash table and
+      enrich all matching transactions.</p>
+
+    <pre>
+# hash table H maps join attributes to transactions
+self.hash_customer = {}    # customer_id -> list of transactions
+self.hash_product  = {}    # product_id  -> list of transactions
+</pre>
+
+    <h3>Queue</h3>
+    <p>A deque that tracks chunks in the order they entered. Each chunk has two counters: how many customer partitions
+      it still needs to see, and how many product partitions it still needs to see. A chunk is not removed until both
+      counters reach zero, meaning it has been compared against the complete customer master data and the complete
+      product master data at least once. This guarantees no match is missed.</p>
+
+    <h2>5.3 The Four-Step Iteration</h2>
+
+    <p>Each call to <code>run_one_iteration()</code> performs four steps in order:</p>
+
+    <ol>
+      <li><strong>Load a chunk:</strong> Up to 500 transactions are moved from the stream buffer into Hash Table H. Each
+        transaction is indexed by customer_id in <code>hash_customer</code> and by product_id in
+        <code>hash_product</code>. A node representing this chunk is added to the queue with lifetime counters set to 9
+        (customer partitions) and 8 (product partitions).
+      </li>
+      <li><strong>Load a master data partition:</strong> The next customer page and the next product page are both read
+        from DiskReader into the disk buffer.</li>
+      <li><strong>Probe and enrich:</strong> For every customer tuple in the customer page, the algorithm probes
+        <code>hash_customer</code>. If a match is found, it writes the demographic attributes (gender, age group,
+        occupation, etc.) into the matching transaction objects. The same is done for the product page against
+        <code>hash_product</code>, adding product name, category, supplier, assigned store, and computed sale value.
+      </li>
+      <li><strong>Evict completed chunks:</strong> The queue is inspected from the front (oldest chunk). If a chunk has
+        seen all 9 customer pages and all 8 product pages, it is removed from the queue. Its transactions are removed
+        from both hash tables and are sent to the output queue for fact table insertion.</li>
+    </ol>
+
+    <h2>5.4 Data Enrichment Detail</h2>
+
+    <p>Customer pass adds: gender, age_group, occupation, city_category, stay_in_current_city_years, marital_status.</p>
+
+    <p>Product pass adds: product_name, product_category, supplier_id, supplier_name, store_id, and revenue calculated
+      as:</p>
+
+    <pre>
+tx["sale"] = round(quantity * unit_price, 2)
+</pre>
+
+    <p>Store assignment is done during the product pass. If the transaction's sales_mode is "online", it is assigned
+      store_id = "1". If it is "periodic", the store is assigned as:</p>
+
+    <pre>
+store_index = stable(tx["transaction_id"], 4)
+tx["store_id"] = ["2", "3", "4", "5"][store_index]
+</pre>
+
+    <h2>5.5 Why Staggered Processing Matters</h2>
+
+    <p>The core advantage of MESHJOIN is that multiple chunks overlap in memory at the same time. When chunk 1 is being
+      compared against master data pages 2, 3, 4..., chunk 2 has already entered the hash table and is waiting for pages
+      1, 2, 3... This staggered approach means the master data is traversed once continuously in a cycle, and every
+      chunk eventually sees every page without redundant disk reads or pauses in the stream.</p>
+  </div>
+
+  <!-- ==================== SECTION 6: THREADING ==================== -->
+  <div class="section-break">
+    <h1>6. Multi-Threading and Load Shedding</h1>
+
+    <p>The pipeline runs three concurrent threads. These are defined in <code>threads.py</code>. All threads share a
+      <code>threading.Lock()</code> called <code>buffer_lock</code> that controls access to the shared stream buffer and
+      prevents race conditions.
+    </p>
+
+    <h2>6.1 Thread 1: StreamProducerThread (Online Stream)</h2>
+
+    <p>This thread reads <code>online_sales_stream.csv</code> and pushes records into the stream buffer in batches. It
+      runs continuously until all online records are consumed. If the stream buffer is full, the thread releases the
+      lock briefly and retries, giving the MESHJOIN worker a chance to consume and free up space. It never drops an
+      online transaction.</p>
+
+    <h2>6.2 Thread 2: PeriodicExtractorThread (Periodic Staging + Load Shedding)</h2>
+
+    <p>This thread simulates the hourly physical store data extraction. At startup it reads the entire
+      <code>periodic_sales_staging.csv</code> and groups records by their <code>release_hour</code> value (0 to 47).
+      Then it loops through these 48 groups with a small sleep interval between each one to simulate time passing.
+    </p>
+
+    <p>Before releasing each hourly batch, the thread first checks if any previously shed transactions can be recovered.
+      If the stream buffer has free space, shed transactions are pushed back in. Then the current hour's transactions
+      are pushed. If the stream buffer is at capacity, the remaining periodic transactions go to the
+      <code>shed_queue</code> in memory instead of the stream buffer.
+    </p>
+
+    <pre>
+# if buffer has space, push transaction
+if len(self.mj.stream_buffer) < self.mj.stream_buffer_size:
+    self.mj.add_to_stream_buffer(tx)
+    self.total_periodic_pushed += 1
+else:
+    # buffer full -> shed periodic transaction
+    self.shed_queue.append(tx)
+    self.total_shed += 1
+</pre>
+
+    <p>Once all 48 hours are released, the thread keeps trying to push any remaining shed transactions until they are
+      all recovered.</p>
+
+    <h2>6.3 Thread 3: MeshJoinWorkerThread (MESHJOIN Execution)</h2>
+
+    <p>This thread runs in a loop and calls <code>run_one_iteration()</code> on the MeshJoin operator whenever there are
+      transactions in the stream buffer or chunks still in the queue. Each enriched transaction it produces is appended
+      to the shared <code>enriched_output</code> deque, which the main pipeline reads from to build fact records for
+      database insertion.</p>
+
+    <h2>6.4 Thread Interaction Summary</h2>
+
+    <pre>
+StreamProducerThread ----push----> stream_buffer
+PeriodicExtractorThread --push---> stream_buffer
+                       --shed----> shed_queue
+                       <--recover- shed_queue
+
+MeshJoinWorkerThread ---read-----> stream_buffer
+                     ---write----> enriched_output
+
+main.py ----------------read-----> enriched_output
+        ---------------write-----> transaction_fact (MySQL)
+</pre>
+
+    <h2>6.5 Execution Results</h2>
+
+    <p>When the pipeline ran on the full dataset, the execution summary was as follows:</p>
+
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Total execution time</td>
+        <td>approximately 10 seconds</td>
+      </tr>
+      <tr>
+        <td>Online transactions pushed to stream buffer</td>
+        <td>278,740</td>
+      </tr>
+      <tr>
+        <td>Periodic transactions pushed to stream buffer</td>
+        <td>800</td>
+      </tr>
+      <tr>
+        <td>Periodic transactions shed to shed_queue</td>
+        <td>118,344</td>
+      </tr>
+      <tr>
+        <td>Shed transactions recovered</td>
+        <td>118,344</td>
+      </tr>
+      <tr>
+        <td>Total transactions enriched by MESHJOIN</td>
+        <td>397,884</td>
+      </tr>
+    </table>
+
+    <p>All 397,884 cleaned transactions were enriched and loaded into the Data Warehouse. No transaction was permanently
+      lost. The shedding and recovery mechanism ensured that even though 118,344 periodic transactions could not enter
+      the stream buffer during the high-load phase of the online stream, they were all recovered afterward and processed
+      successfully.</p>
+  </div>
+
+  <!-- ==================== SECTION 7: PIPELINE EXECUTION ==================== -->
+  <div class="section-break">
+    <h1>7. Pipeline Execution and Fact Loading</h1>
+
+    <p>The main controller is <code>main.py</code>. When you run it, it performs the following steps in order.</p>
+
+    <p>First it connects to the MySQL database and loads all five dimension tables into in-memory Python dictionaries.
+      This is done so that the fact loader can quickly look up the surrogate key for each dimension without running
+      individual SQL queries for every single transaction. For example, instead of running "SELECT customer_key FROM
+      dim_customer WHERE customer_id = X" for each of 397,884 records, it loads all 4,338 customer keys once into a
+      dictionary and uses dictionary lookup throughout the whole run.</p>
+
+    <pre>
+cursor.execute("SELECT customer_id, customer_key FROM dim_customer")
+customer_keys = {str(row[0]): row[1] for row in cursor.fetchall()}
+</pre>
+
+    <p>Then it initializes the MeshJoin operator with the two master data CSV paths and starts all three threads. The
+      main thread enters a loop where it reads enriched records from the output queue and builds fact records. For each
+      enriched transaction, it maps the natural IDs to surrogate keys from the cached dictionaries, parses the
+      event_time to find the matching date and hour in <code>dim_time</code>, and calculates the final revenue value.
+    </p>
+
+    <p>Facts are inserted in batches of 500 using <code>executemany()</code> for efficiency. The main loop continues
+      until both producer threads have finished and the MESHJOIN queue is empty.</p>
+
+    <h2>7.1 How to Run the Full Pipeline</h2>
+
+    <ol>
+      <li>Run the schema DDL in MySQL: <code>mysql -u root -p &lt; Create-DW/create_dw.sql</code></li>
+      <li>Generate master data: <code>python3 Mesh-Join/data_preparation.py</code></li>
+      <li>Load dimensions: <code>python3 Mesh-Join/database.py</code></li>
+      <li>Run MESHJOIN and load facts: <code>python3 Mesh-Join/main.py</code></li>
+      <li>Run the analysis queries:
+        <code>mysql -u root -p -t retail_dw &lt; Queries-DW/analysis_queries.sql &gt; query_results.txt</code>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ==================== SECTION 8: QUERIES ==================== -->
+  <div class="section-break">
+    <h1>8. DW Analysis Queries</h1>
+
+    <p>Once the fact table is populated, 20 OLAP queries answer business questions about the retail chain. All queries
+      are in <code>Queries-DW/analysis_queries.sql</code>. Below is a description of each one.</p>
+
+    <h2>8.1 Query Descriptions</h2>
+
+    <table>
+      <tr>
+        <th>Query</th>
+        <th>Purpose</th>
+        <th>Key Dimensions Used</th>
+      </tr>
+      <tr>
+        <td>Q1</td>
+        <td>Top 5 revenue-generating products on weekdays and weekends, broken down by month</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q2</td>
+        <td>Customer spending by gender, age group, and city category</td>
+        <td>dim_customer</td>
+      </tr>
+      <tr>
+        <td>Q3</td>
+        <td>Product category sales grouped by customer occupation</td>
+        <td>dim_customer, dim_product</td>
+      </tr>
+      <tr>
+        <td>Q4</td>
+        <td>Revenue trends by gender and age group across all four quarters</td>
+        <td>dim_customer, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q5</td>
+        <td>Top 5 customer occupations by total revenue per product category</td>
+        <td>dim_customer, dim_product</td>
+      </tr>
+      <tr>
+        <td>Q6</td>
+        <td>Revenue by city category and marital status for the latest 6 months of data</td>
+        <td>dim_customer, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q7</td>
+        <td>Average purchase amount by how long a customer has lived in their current city, split by gender</td>
+        <td>dim_customer</td>
+      </tr>
+      <tr>
+        <td>Q8</td>
+        <td>Total revenue by city category A, B, C for each product category</td>
+        <td>dim_customer, dim_product</td>
+      </tr>
+      <tr>
+        <td>Q9</td>
+        <td>Month-over-month growth percentage per product category using LAG window function</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q10</td>
+        <td>Comparison of weekday sales vs. weekend sales broken down by customer age group</td>
+        <td>dim_customer, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q11</td>
+        <td>Top 5 products on weekdays vs. weekends, grouped by month</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q12</td>
+        <td>Quarter-over-quarter revenue growth rate per store using LAG window function</td>
+        <td>dim_store, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q13</td>
+        <td>Supplier sales contribution broken down by store and product name</td>
+        <td>dim_supplier, dim_store, dim_product</td>
+      </tr>
+      <tr>
+        <td>Q14</td>
+        <td>Seasonal sales analysis (Spring, Summer, Autumn, Winter) per product category</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q15</td>
+        <td>Month-to-month revenue volatility percentage per store and supplier combination</td>
+        <td>dim_store, dim_supplier, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q16</td>
+        <td>Top 5 product pairs most frequently bought together in the same cart (product bundling)</td>
+        <td>dim_product</td>
+      </tr>
+      <tr>
+        <td>Q17</td>
+        <td>Yearly revenue rolled up by store, supplier, and product using the ROLLUP clause</td>
+        <td>dim_store, dim_supplier, dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q18</td>
+        <td>Revenue and quantity sold by product for first half of year vs. second half vs. full year</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q19</td>
+        <td>Identifies days where a product's daily revenue exceeded double its own average daily revenue (revenue spike
+          detection)</td>
+        <td>dim_product, dim_time</td>
+      </tr>
+      <tr>
+        <td>Q20</td>
+        <td>Creates and queries the STORE_QUARTERLY_SALES view showing quarterly revenue per store ordered by store name
+          and quarter</td>
+        <td>dim_store, dim_time</td>
+      </tr>
+    </table>
+
+    <h2>8.2 Notable Techniques Used</h2>
+
+    <p>Several queries use window functions like <code>LAG()</code> to compare the current period against the previous
+      period within the same group. For example, Q9 computes month-over-month growth by comparing each month's product
+      category revenue against the previous month's revenue in the same category:</p>
+
+    <pre>
+lag(revenue) over (partition by product_category order by year, month)
+</pre>
+
+    <p>Query 17 uses MySQL's <code>WITH ROLLUP</code> modifier on a GROUP BY clause to produce hierarchical subtotals.
+      For example, the query produces rows for individual products, then a subtotal for each supplier within a store,
+      then a total for the store, and finally a grand total. <code>COALESCE()</code> is used to replace the NULL values
+      that ROLLUP inserts for aggregated rows with readable labels like "All Stores" or "All Products".</p>
+
+    <p>Query 16 joins the fact table with itself on the same transaction_id to find product pairs bought in the same
+      invoice. The condition <code>f1.product_key &lt; f2.product_key</code> ensures each pair is counted only once.</p>
+
+    <p>Query 20 creates a view called <code>STORE_QUARTERLY_SALES</code> that can be queried at any time to get a quick
+      overview of how each store is performing quarter by quarter. The query at the end of the file selects all rows
+      from this view.</p>
+  </div>
+
+  <!-- ==================== SECTION 9: CONCLUSION ==================== -->
+  <div class="section-break">
+    <h1>9. Conclusion</h1>
+
+    <p>This project built a complete near-real-time and periodic Data Warehouse for a retail chain from start to finish.
+      The pipeline handles data at every stage: raw data cleaning, deterministic synthetic master data generation,
+      two-stream splitting, MESHJOIN-based data enrichment, multi-threaded loading with load shedding and recovery, and
+      20 OLAP analytical queries.</p>
+
+    <p>The most technically demanding part of the project was implementing the MESHJOIN algorithm correctly. The key
+      challenge is making sure each chunk of transactions stays in memory long enough to be compared against the full
+      customer master data and the full product master data before it is evicted from the hash table. Getting the queue
+      lifetime counters right, and making sure the hash table cleanup does not accidentally remove a transaction before
+      it has completed both passes, required careful coordination between the DiskReader's cyclic traversal and the
+      queue's tracking logic.</p>
+
+    <p>The load shedding mechanism was also important. During a real streaming ETL pipeline, the online stream will
+      sometimes produce data faster than MESHJOIN can process it. To handle this without losing periodic transactions,
+      the PeriodicExtractorThread redirects overflow records to the shed_queue and gradually recovers them when the
+      stream buffer is less busy. In the final run, all 118,344 shed transactions were successfully recovered and
+      processed.</p>
+
+    <p>The final Data Warehouse contains 397,884 fact records enriched with customer demographics, product attributes,
+      supplier information, store assignments, and computed revenue values. The 20 OLAP queries and the
+      STORE_QUARTERLY_SALES view provide business-level insights into customer behavior, product performance, seasonal
+      trends, and store-level revenue patterns across the full year of retail data.</p>
+  </div>
+
+</body>
+
+</html>
