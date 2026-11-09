@@ -13,7 +13,7 @@ buffer_lock = threading.Lock()
 
 
 
-#           THREAD 1: STREAM PRODUCER (NEAR REAL-TIME)
+#           THREAD 1: STREAM PRODUCER (adding trans -> stream bufferE) 
 
 
 
@@ -70,7 +70,7 @@ class StreamProducerThread(threading.Thread):
 
 
 
-#           THREAD 2: PERIODIC EXTRACTOR & LOAD SHEDDING
+#           THREAD 2: PERIODIC EXTRACTOR & LOAD SHEDDING (adding and removing trans ->  stream buffer) 
 
 
 
@@ -148,7 +148,7 @@ class PeriodicExtractorThread(threading.Thread):
 
 
 
-#           THREAD 3: MESHJOIN EXECUTION WORKER
+#           THREAD 3: MESHJOIN EXECUTION WORKER (joining + giving final)
 
 
 
@@ -169,7 +169,9 @@ class MeshJoinWorkerThread(threading.Thread):
             enriched_records = []
 
             with buffer_lock:
+
                 # run one cycle if there are transactions in stream buffer or queue
+                
                 if self.mj.stream_buffer or self.mj.queue:
                     enriched_records = self.mj.run_one_iteration()
                     self.total_iterations += 1

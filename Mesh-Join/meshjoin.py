@@ -80,7 +80,7 @@ class DiskReader:
 class MeshJoin:
     def __init__(self, customer_file, product_file, chunk_size=500, stream_buffer_size=1000):
         
-        # receive trans Chunk 1 -> queue -> hash table ( customer and product )
+        # receive trans Chunk 1 -> stream buffer  -> queue -> hash table ( customer and product )
 
         # now 
 
@@ -90,7 +90,7 @@ class MeshJoin:
         # read Customer and Produt Page 2,3,4,5,7,8,9 and join them with the chunk 1 
         # remove chunk 1 from queue and hash tables
         
-        # repeat for all chunks in queue
+        # repeat for all chunks in queue (deque)
        
 
         
